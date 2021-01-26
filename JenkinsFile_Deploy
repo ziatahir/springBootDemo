@@ -1,0 +1,24 @@
+pipeline {
+    
+    agent {label "master"}
+    
+    stages {
+
+	
+        stage('Deploy-SCP') {
+           steps {
+		      echo "deploying on pcf"
+
+              sh'''
+              #cf login -a 'https://api.cf.eu10.hana.ondemand.com' -u 'devsecops20@gmail.com' -p 'D3vs3c0ps!' -o P2001960486trial_trial -s development
+              #cf apps
+              cf login -a 'https://api.run.pivotal.io' -u 'devsecops20@gmail.com' -p 'D3vs3c0ps!' -o CLOVE -s development
+              cf push helloSpringBoot -m 1024M --hostname helloSpromgBoot -p /var/lib/jenkins/workspace/springBoot_build/target/spring-boot-web-jsp-1.0.war
+              '''
+            }
+        }
+       
+        
+    }
+    
+}
